@@ -55,6 +55,9 @@ def hex_to_ten(hex_string):
         return None
 
 def long_to_bytes(n):
+    # 将输入转换为整数
+    n = int(n)
+
     # 计算需要的字节数，加上7是为了在除以8时可以向上取整
     byte_length = (n.bit_length() + 7) // 8
     return n.to_bytes(byte_length, 'big')
