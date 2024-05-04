@@ -54,38 +54,3 @@ def yafu_get(number):
                     print("No factors found!")  # 调试输出，没有找到匹配的因子
                     return None
 
-def extended_gcd(a, b):
-    if a == 0:
-        return (b, 0, 1)
-    else:
-        gcd, x, y = extended_gcd(b % a, a)
-        return (gcd, y - (b // a) * x, x)
-
-def inverse_mod(a, m):
-    gcd, x, y = extended_gcd(a, m)
-    if gcd != 1:
-        raise ValueError(f"{a} 没有模 {m} 的逆元素")
-    else:
-        return x % m
-
-def n_c_e_to_m(n, c, e):
-    factors = yafu_get(str(n) + '\n\n')  # 将参数转换为字符串类型
-
-    # 计算 phi
-    phi = 1
-    for factor in factors:
-        phi *= factor - 1
-
-    # 计算 d
-    d = inverse_mod(e, phi)
-
-    # 解密消息
-    m_hex = hex(pow(c, d, n))[2:]
-    m_bytes = bytes.fromhex(m_hex)
-
-    return m_bytes.decode('utf-8')
-
-n = 17290066070594979571009663381214201320459569851358502368651245514213538229969915658064992558167323586895088933922835353804055772638980251328261
-c = 14322038433761655404678393568158537849783589481463521075694802654611048898878605144663750410655734675423328256213114422929994037240752995363595
-e = 65537
-print(n_c_e_to_m(n, c, e))
