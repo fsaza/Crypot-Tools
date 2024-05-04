@@ -6,15 +6,15 @@
 
 目前实现
 
-#根据正则表达式扫描特征
+# 根据正则表达式扫描特征
 
-#AES Tools
+# AES Tools
 
 1:Crypto.Cipher
 
 解密基于Crypto.Cipher的AES
 
-#boom tools
+# boom tools
 
 1:caesar
 
@@ -42,7 +42,7 @@ y=(ax+b) mod m
 
 栅栏密码爆破
 
-#decode tools
+# decode tools
 
 1:10   -> 16
 
@@ -58,7 +58,7 @@ y=(ax+b) mod m
 
 7:long ->bytes
 
-#operation
+# operation
 
 1:BEEA
 
@@ -84,7 +84,7 @@ y=(ax+b) mod m
 
 ret=a ^ b
 
-#RSA TOOLS
+# RSA TOOLS
 
 1:p q e -> d
 
@@ -104,5 +104,6 @@ ret=a ^ b
 
 m c e -> m
 
-#参与贡献的作者
-#FSAZ
+# 参与贡献的作者
+
+# FSAZ
