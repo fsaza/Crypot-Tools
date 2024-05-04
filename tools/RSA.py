@@ -1,7 +1,5 @@
-import os
 from sympy import Rational, continued_fraction, continued_fraction_convergents
-from os import getcwd
-
+from tools.yafu.yafu import *
 def gcd(a, b):
     """
     计算两个整数的最大公约数
@@ -136,12 +134,22 @@ def decrypt_rsa(c, d, n):
 
 
 def n_c_e_to_m(n, c, e):
-    # 拼接命令字符串
-    cmd = os.path.join('Required', 'yafu', 'yafu-x64.exe') + f' factor({n})'
-    print(cmd)
-    # 执行命令
-    result = os.system(cmd)
-    return r
+    factors = yafu_get(str(n) + '\n\n')  # 将参数转换为字符串类型
+
+    # 计算 phi
+    phi = 1
+    for factor in factors:
+        phi *= factor - 1
+
+    # 计算 d
+    d = modinv(e, phi)
+
+    # 解密消息
+    m_hex = hex(pow(c, d, n))[2:]
+    m_bytes = bytes.fromhex(m_hex)
+
+    return m_bytes.decode('utf-8')
+
 def rsam():
     while True:
         print('''
@@ -201,5 +209,3 @@ m c e -> m
             print('[INFO]' + str(n_c_e_to_m(n1, c1, e1)))
         else:
             return
-
-rsam()
