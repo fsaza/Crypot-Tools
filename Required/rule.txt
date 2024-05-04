@@ -1,0 +1,16 @@
+from\s+(.*?)\s+import\s+\*
+IS PYTHON                 --from * import *
+import\s+AES
+PYTHON-或许是AES           --import AES
+(\w+)\s+\+\s+b"".join\(\[b'\\x00' for _ in range\(0, 16 - len\((\w+)\)\)\]\)
+PYTHON-发现16位填充        --* + b"".join([b'\x00' for _ in range(0, 16 - len(data))])
+os\.urandom\((\w*)\)
+PYTHON-随机数被生成        --os.urandom(*)
+os\.urandom\(\d+\)\*\d+
+PYTHON-随机数复用！！！！   --os.urandom(?) * ?
+AES\.new\((.*?),\s+AES\.MODE_CBC,\s+(.*?)\)
+PYTHON-使用了AES/CBC加密   --AES.new(*, AES.MODE_CBC,*)
+aes\.encrypt\((.*?)\)
+PYTHON-使用了AES          --aes.encrypt(*)
+\(\w+\*\w+ \+ \w+\) % \w+
+PYTHON-或许于与射密码有关?  --((?*? + ?) % ?)
