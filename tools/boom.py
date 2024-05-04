@@ -1,3 +1,5 @@
+from itertools import product
+from pwn import xor
 def caesar_1(ciphertext, alphabet):
     """ 对给定的密文进行凯撒密码的暴力破解，尝试每一种可能的移位，并打印结果。 """
     ciphertext = ciphertext.upper()  # 将密文转换为大写以简化处理
@@ -185,6 +187,20 @@ def brute_force_rail_fence(cipher_text):
         decrypted_text = decrypt_rail_fence(cipher_text, num_rails)
         print(f"[INFO]尝试 {num_rails} 轨道: {decrypted_text}")
 
+
+def or_boom(cipher_text_hex, know_data):
+    # 将十六进制字符串转换为字节串
+    cipher_text = bytes.fromhex(cipher_text_hex)
+
+    # 将已知明文转换为字节串
+    know_data_bytes = know_data.encode()
+    # 遍历所有可能的密钥
+    for b in range(256):
+        if b'flag' in xor(bytes([b]), cipher_text):
+            return xor(bytes([b]), cipher_text)
+    # 返回可能的明文列表
+    return 0
+
 def boom():
     while True:
         print('''
@@ -203,6 +219,8 @@ y=(ax+b) mod m
 需要m,y_hex,known_plaintext
 6:Fence boom
 栅栏密码爆破
+7:ro boom
+y = m ^ ? 
 ===========================
 ''')
         choice = int(input('-->'))
@@ -225,5 +243,9 @@ y=(ax+b) mod m
                 print(str(e))
         if choice == 6:
             brute_force_rail_fence(str(input('-->')))
+        if choice == 7:
+            data = input('y-->')
+            known_plaintext = input('已知明文-->')
+            print(or_boom(data, known_plaintext))
         else:
             return 0
