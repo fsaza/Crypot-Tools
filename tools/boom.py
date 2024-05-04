@@ -1,4 +1,3 @@
-from itertools import product
 from pwn import xor
 def caesar_1(ciphertext, alphabet):
     """ 对给定的密文进行凯撒密码的暴力破解，尝试每一种可能的移位，并打印结果。 """
@@ -196,7 +195,7 @@ def or_boom(cipher_text_hex, know_data):
     know_data_bytes = know_data.encode()
     # 遍历所有可能的密钥
     for b in range(256):
-        if b'flag' in xor(bytes([b]), cipher_text):
+        if know_data_bytes in xor(bytes([b]), cipher_text):
             return xor(bytes([b]), cipher_text)
     # 返回可能的明文列表
     return 0
